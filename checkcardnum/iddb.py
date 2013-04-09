@@ -10,27 +10,28 @@ def creattable():
     cu.execute('create table id_main(id integer primary key UNIQUE,area varchar(30))')
 
 def insertdb():
-    cu.execute('insert into id_main values("2","第二")')
     cu.execute('insert into id_main values(3,"第三")')
     cu.execute('insert into id_main values(1,"第一")')
     iddb.commit()
 
 def selectdb():
-    cu.execute('select * from id_main')
+    cu.execute('select * from id_main where id="130730"')
     qs =cu.fetchall()
     print qs
 
 def sqlfile():
-    opensqlfile = open('2.txt')
+    opensqlfile = open('iddata.txt','rb')
 #    print sqldo
     for line in opensqlfile:
 #        print line
         cu.execute(line)
+#        cu.execute(line)
     iddb.commit()
     
 
 if __name__ == '__main__':
-    creattable()
-    insertdb()
+#    creattable()
+#    insertdb()
+#    selectdb()
+#    sqlfile()
     selectdb()
-    sqlfile()
