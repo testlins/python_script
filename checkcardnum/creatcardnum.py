@@ -6,11 +6,24 @@
 import random
 import datetime
 import time
+import sqlite3
 def creatcardnum():
+    #获取区域id随机数
+    iddb = sqlite3.connect("id.db")
+    iddb.text_factory = str
+    cu = iddb.cursor()
+    listid=[]
+    cu.execute('SELECT id FROM id_main')
+    #为啥可以for循环，还不懂
+    for id in cu:
+        listid.append(id[0])
+#    listlen = len(listid)
+    #获取随机数注意列表是从0开始，列表id比长度少1
+    #不然会报错IndexError: list index out of range
+    startnum = str(listid[random.randint(0,(len(listid)-1))])
     #身份证 序列数
     squnum = str(random.randint(001,999)).zfill(3)
     nowdate = datetime.date.today()
-    startnum = str(random.randint(100000,999999))
     startdate = datetime.date(1900, 1, 1)
     #当前时间和现在的间隔天数
     sepdate = (nowdate - startdate).days
@@ -32,5 +45,6 @@ def creatcardnum():
 
 if __name__ == '__main__':
     while 1:
+        
         creatcardnum()
     
