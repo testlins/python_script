@@ -6,18 +6,22 @@ import re
 def grabarea():
     data = urllib.urlopen("http://www.stats.gov.cn/tjbz/xzqhdm/t20130118_402867249.htm").read()
 #    regetcode = re.compile(r'lang=EN-US>.+<o:p></o:p></SPAN></P></TD>')
-    regetcode = r'lang=EN-US>.+<o:p></o:p></SPAN></P></TD>'
-    re1 = re.findall(regetcode,data)
-#    re2 = re.findall(r'\d+',re1)
+    regetid = r'lang=EN-US>.+<o:p></o:p></SPAN></P></TD>'
+    regetarea = 'mso-bidi-font-family: Tahoma">.+<SPAN lang=EN-US><o:p></o:p></SPAN></SPAN></P></TD></TR>'
+    idnum = re.findall(regetid,data)
+    areainfo = re.findall(regetarea,data)
+#    print areainfo
     file1 = open(r'2.txt','w+')
-    for i in re1:
-        re2 = re.search(r'\d+',i)
-        re3 = re2.group()
-        print i
-        print re3
-        file1.write(str(re3))
-#        file1.write(str(i))
-        file1.write('\r\n')
+#    for middid in idnum:
+#        reid = re.search(r'\d+',middid)
+#        id = reid.group()
+#        print id
+    for middarea in areainfo:
+        area1 = re.search('[\x80-\xff]+',middarea)
+        area = area1.group()
+        print area
+        file1.write('insert into id_main (id) values("%s")'%(area))
+        file1.write('\n')
     file1.close()
 
 if __name__ == '__main__':
