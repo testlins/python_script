@@ -9,7 +9,7 @@ def calc_date(age):
         nowtime = datetime.date.today()
         middtime = datetime.date(nowtime.year-age,nowtime.month,nowtime.day)
         
-        print nowtime,middtime
+#        print nowtime,middtime
         return middtime
     else:
         print "age error"
@@ -18,7 +18,7 @@ def calc_age(birth):
     if  birth.isdigit() and len(birth)==8 and checkdate.checkdate(birth):
         nowtime = datetime.date.today().year
         birthyear = datetime.datetime.strptime(birth,'%Y%m%d').year
-        print nowtime - birthyear
+#        print nowtime - birthyear
         return nowtime - birthyear
         
                 
