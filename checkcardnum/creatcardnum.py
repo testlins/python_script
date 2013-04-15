@@ -2,13 +2,15 @@
 #创建随机身份证号
 #保证身份证合法：
 #年龄合法、校验位正确
-#
+#按年龄大小生成
 import random
 import datetime
 import time
 import sqlite3
-def creatcardnum():
+import calc_age
+def creatcardnum(flag,age):
     #获取区域id随机数
+    
     iddb = sqlite3.connect("id.db")
     iddb.text_factory = str
     cu = iddb.cursor()
@@ -25,13 +27,30 @@ def creatcardnum():
     squnum = str(random.randint(001,999)).zfill(3)
     nowdate = datetime.date.today()
     startdate = datetime.date(1900, 1, 1)
+    midddate =calc_age.calc_date(age)
     #当前时间和现在的间隔天数
-    sepdate = (nowdate - startdate).days
-    randomdate = random.randint(0,sepdate)
-    xdate = startdate + datetime.timedelta(days = randomdate)
-    #字符串随机时间
-    finnaldate = str(xdate.year) + str(xdate.month).zfill(2) +str(xdate.day).zfill(2)
-    cardlist = startnum + finnaldate + squnum
+    if flag=='>':
+        #大于age，则出生日期小于输入年龄
+        sepdate = (midddate - startdate).days
+        randomdate = random.randint(0,sepdate)
+        xdate = startdate + datetime.timedelta(days = randomdate)
+        #字符串随机时间
+        finnaldate = str(xdate.year) + str(xdate.month).zfill(2) +str(xdate.day).zfill(2)
+        cardlist = startnum + finnaldate + squnum
+        
+    elif flag=='<':
+        #小于age，则出生日期大于输入年龄
+        sepdatenow = (nowdate - startdate).days
+        sepdatemidd = (midddate - startdate).days
+        randomdate = random.randint(sepdatemidd,sepdatenow)
+        xdate = startdate + datetime.timedelta(days = randomdate)
+        #字符串随机时间
+        finnaldate = str(xdate.year) + str(xdate.month).zfill(2) +str(xdate.day).zfill(2)
+        cardlist = startnum + finnaldate + squnum
+        
+    else:
+        print "flag error"        
+        
     #根据规则求身份证校验位
     values =['1','0','X','9','8','7','6','5','4','3','2']
     multiplier =[7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2]
@@ -44,7 +63,8 @@ def creatcardnum():
     print cardnum    
 
 if __name__ == '__main__':
+    print "input age number and '>' or '<'"
     while 1:
         
-        creatcardnum()
+        creatcardnum('11',10)
     
