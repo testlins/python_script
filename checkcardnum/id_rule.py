@@ -27,7 +27,7 @@ class id_rule(object):
             pass
     
     def id_isarea(self):
-        pass
+        
         
     
     def id_isdate(self):
