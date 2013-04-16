@@ -14,23 +14,34 @@ class id_db(object):
             config.readfp(cfgfile)
             id_db = config.get('id_db','dbname')
         self.connid_db = sqlite3.connect(id_db)
+        self.connid_db.text_factory = str
         self.cursorid = self.connid_db.cursor()
     
-    def select_area(self,num):
+    def select_area(self,id):
         cursorid = self.cursorid
-        cursorid.execute('select area from id_main where id="%d"'%num)
-        qs =cursorid.fetchone()
-        print qs
+        cursorid.execute('select area from id_main where id="%s"'%id)
+        for area in cursorid:
+            #print area[0].encode('GB18030')
+            #print area[0]
+            return area[0]
     
-    def select_num(self,area):
-        pass
+    def select_allareaid(self):
+        listid = []
+        cursorid = self.cursorid
+        cursorid.execute('select id from id_main')
+        for id in cursorid:
+            listid.append(id[0])
+        #print listid[0]
+        return listid
+    
+    
 
 
         
 
-
-id_db =id_db()
-id_db.select_area(1)
-
+if __name__ == '__main__':
+    id_db =id_db()
+    id_db.select_area(110106)
+    id_db.select_allareaid()
     
         
