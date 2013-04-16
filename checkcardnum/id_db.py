@@ -25,6 +25,15 @@ class id_db(object):
             #print area[0]
             return area[0]
     
+    def select_areaid(self,area):
+        cursorid = self.cursorid
+        cursorid.execute('select id from id_main where area="%s"'%area)
+        for areaid in cursorid:
+            #print areaid[0]
+            return areaid[0]
+                
+        
+    
     def select_allareaid(self):
         listid = []
         cursorid = self.cursorid
@@ -43,5 +52,5 @@ if __name__ == '__main__':
     id_db =id_db()
     id_db.select_area(110106)
     id_db.select_allareaid()
-    
+    print id_db.select_areaid('北京市')
         
