@@ -21,17 +21,17 @@ class creid_rule(object):
         area = self.area
         connect = id_db.id_db()
         if area:
-            print connect.select_areaid(area)
+            #print connect.select_areaid(area)
             return str(connect.select_areaid(area))
         else:
-             print connect.select_allareaid()[random.randint(1,(len(connect.select_allareaid())-1))]
+             #print connect.select_allareaid()[random.randint(1,(len(connect.select_allareaid())-1))]
              return str(connect.select_allareaid()[random.randint(1,(len(connect.select_allareaid())-1))])
     
     def cre_bridate(self):
         """指定生日或随机获取"""
         bridate = self.birdate
         if bridate:
-            print bridate
+            #print bridate
             return str(bridate)
         else:
             nowdate = datetime.date.today()

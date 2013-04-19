@@ -26,7 +26,7 @@ class id_rule(object):
             self.id_date = id_num[6:14]
             self.id_sex = id_num[16]
         else:
-            print 'id_num error'
+            return 'id_num error'
             pass
     
     def id_isarea(self):
@@ -38,7 +38,7 @@ class id_rule(object):
         if connectdb.select_area(id_area):
             return connectdb.select_area(id_area)
         else:
-            print 'error area'
+            #print 'error area'
             return False
             
         
@@ -68,7 +68,7 @@ class id_rule(object):
         nowyear = datetime.date.today().year
         brithyear = datetime.datetime.strptime(date,'%Y%m%d').year
         age = nowyear - brithyear
-        print age
+        #print age
         return age
     
     def id_rule(self):
