@@ -80,8 +80,8 @@ def checkid_callback(a):
         errortext = '输入字符类型错误11'
         errorlabel.set(errortext)  
         checkid_entry.delete(17, 17) """         
-#    for i in range(len(l)-1,-1,-1):
-    for i in range(0,len(l)):
+    for i in range(len(l)-1,-1,-1):
+#    for i in range(0,len(l)):
         #print i
         if i==17:
            if l[i] not in last_num:
