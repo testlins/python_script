@@ -26,8 +26,8 @@ class id_rule(object):
             self.id_date = id_num[6:14]
             self.id_sex = id_num[16]
         else:
-            return 'id_num error'
-            pass
+            return False
+            
     
     def id_isarea(self):
         """

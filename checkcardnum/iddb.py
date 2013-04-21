@@ -30,8 +30,8 @@ def sqlfile():
     
 
 if __name__ == '__main__':
-#    creattable()
+    creattable()
 #    insertdb()
 #    selectdb()
-#    sqlfile()
-    selectdb()
+    sqlfile()
+    #selectdb()

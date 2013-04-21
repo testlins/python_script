@@ -1,21 +1,21 @@
-#coding=gbk
-#×¥È¡Éí·İÖ¤ÇøÓòĞÅÏ¢½Å±¾
+#coding=utf-8
+#æŠ“å–èº«ä»½è¯åŒºåŸŸä¿¡æ¯è„šæœ¬
 #
 import urllib
 import re
 def grabarea():
     """
-    ´Ëº¯Êı´ÓÍ³¼Æ¾ÖÍøÕ¾»ñÈ¡Êı¾İ£¬²¢´æ·Åµ½ÎÄ¼şÖĞ
+    æ­¤å‡½æ•°ä»ç»Ÿè®¡å±€ç½‘ç«™è·å–æ•°æ®ï¼Œå¹¶å­˜æ”¾åˆ°æ–‡ä»¶ä¸­
     """
     data = urllib.urlopen("http://www.stats.gov.cn/tjbz/xzqhdm/t20130118_402867249.htm").read()
     regetid = r'lang=EN-US>.+<o:p></o:p></SPAN></P></TD>'
     regetarea = 'mso-bidi-font-family: Tahoma">.+<SPAN lang=EN-US><o:p></o:p></SPAN></SPAN></P></TD></TR>'
-    #findall·µ»ØÀàĞÍÊÇÁĞ±í£¬ÏÂ´ÎÓÃcompileÌá¸ßËÙ¶È
-    #´ÖÔ¼idÊı¾İ
+    #findallè¿”å›ç±»å‹æ˜¯åˆ—è¡¨ï¼Œä¸‹æ¬¡ç”¨compileæé«˜é€Ÿåº¦
+    #ç²—çº¦idæ•°æ®
     idnum = re.findall(regetid,data)
-    #´ÖÔ¼µÄµØÇøÊı¾İ
+    #ç²—çº¦çš„åœ°åŒºæ•°æ®
     areainfo = re.findall(regetarea,data)
-    #id¡¢µØÇøÊı¾İ¿ÕÁĞ±í
+    #idã€åœ°åŒºæ•°æ®ç©ºåˆ—è¡¨
     listid = []
     listarea = []
     
@@ -28,9 +28,9 @@ def grabarea():
         area = area1.group()
         listarea.append(area)
     file1 = open(r'iddata.txt','w+')
-    #id¡¢ÇøÓò´æ·ÅÎÄ¼şÖĞ
+    #idã€åŒºåŸŸå­˜æ”¾æ–‡ä»¶ä¸­
     for i in range(len(listid)):
-        file1.write('insert into id_main (id,area) values("%s","%s")'%(listid[i],listarea[i]))
+        file1.write('insert into id_main (id,area) values("%s","%s");'%(listid[i],listarea[i]))
         file1.write('\n')
     file1.close()
 
