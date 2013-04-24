@@ -6,6 +6,8 @@ import filecmp
 import time
 import ConfigParser
 import mylog
+import Tkinter
+
 
 mylog = mylog.initlog()
 config = ConfigParser.ConfigParser()
@@ -41,7 +43,11 @@ def findstrinfile(filename, lookup):
         mylog.info('集成操作成功')
         return True
     else:
-        mylog.info('集成失败，请通知相关人员，不做操作')
+        mylog.info('版本集成失败，请通知相关人员，不做操作')
+        root = Tkinter.Tk()
+        label =Tkinter.Label(root,text='集成失败，请通知相关人员').pack()
+        root.geometry("230x30+600+300")
+        root.mainloop()     
         return False
 
 def kill(processname):
@@ -63,10 +69,20 @@ def copytjb():
     except:
         mylog.error('复制失败，请关闭相关程序，再试')
 
+    
 
+def copy():
+    kill(processname)
+    copytjb()
 if __name__ == '__main__':
     while True:
         if ischange(scofile,localfile) and findstrinfile(scofile,lookup):
-            kill(processname)
-            copytjb()
+            root = Tkinter.Tk()
+            label =Tkinter.Label(root,text='程序已有更新').pack()
+            button_sure = Tkinter.Button(root,text='更新',command = copy)
+            button_sure.pack()
+            root.geometry("50x50+600+300") 
+            root.mainloop()
+            #kill(processname)
+            #copytjb()
         time.sleep(int(sleeptime))
