@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 from win32com.shell import shell, shellcon
 import os
-import tempfile
 import filecmp
 import time
 import ConfigParser
@@ -22,8 +21,10 @@ with open('copytjb.ini','r+') as cfgfile:
     sleeptime = config.get('time','sleeptime')
     killpro = config.get('process','killpro')
     processname = config.get('process','processname')
+
     
 def ischange(scofile,localfile):
+    """判断report文件是否有改变"""
     if not os.path.exists(localfile):
         localfile = file(localfile,'w')
         localfile.close()
@@ -39,6 +40,7 @@ def ischange(scofile,localfile):
             return False
 
 def findstrinfile(filename, lookup):
+    """通过report判断集成是否成功"""
     if lookup not in open(filename,'rt').read():
         mylog.info('集成操作成功')
         return True
@@ -51,6 +53,7 @@ def findstrinfile(filename, lookup):
         return False
 
 def kill(processname):
+    """杀进程，后面学习其他系统监控方法"""
     if killpro == 'True':
         command = 'taskkill /F /IM %s'%processname
         os.system(command)
@@ -61,6 +64,7 @@ def kill(processname):
     
 
 def copytjb():
+    """拷文件"""
     mylog.info('准备复制olddir，scofile')
     try:
         shell.SHFileOperation ((0, shellcon.FO_COPY, olddir, newdir,shellcon.FOF_NOCONFIRMMKDIR|shellcon.FOF_NOCONFIRMATION, None, None))
@@ -69,7 +73,9 @@ def copytjb():
     except:
         mylog.error('复制失败，请关闭相关程序，再试')
 
-    
+#def opentjb():
+#    command = 'C:\Users\casking_lxs\Desktop\client12\H365.TJB.Client.exe'
+#    os.system(command)   
 
 def copy():
     kill(processname)
@@ -83,6 +89,7 @@ if __name__ == '__main__':
             button_sure.pack()
             root.geometry("50x50+600+300") 
             root.mainloop()
+            #opentjb()
             #kill(processname)
             #copytjb()
         time.sleep(int(sleeptime))
