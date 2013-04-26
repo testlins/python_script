@@ -7,6 +7,10 @@ import time
 import ConfigParser
 import mylog
 import Tkinter
+import win32process
+import win32gui
+import win32api
+import win32con
 
 
 mylog = mylog.initlog()
@@ -83,15 +87,45 @@ def opensvnlog():
         os.system(command)
     else:
         pass
-  
+
+def dotime():
+    nowtime = list(time.localtime())
+    if nowtime[3]>=16: 
+        print nowtime[4]
+        exe_path = r"D:\Program Files (x86)\Spasvo\AutoRunner"
+        exe_file = r'AutoRunner.exe'
+        #command = r'"D:\Program Files (x86)\Spasvo\AutoRunner\AutoRunner.exe"'
+        #command = ur'c:\windows\system32\notepad.exe'
+        #command = r'"C:\Program Files (x86)\Youdao\YoudaoNote\RunYNote.exe"'
+        #os.popen(command)
+        handle = win32process.CreateProcess(os.path.join(exe_path, exe_file),
+                '', None, None, 0,
+                win32process.CREATE_NO_WINDOW,
+                None ,
+                exe_path,
+                win32process.STARTUPINFO())
+        return True
+
+def chickmouse():
+    time.sleep(5)
+    win32api.SetCursorPos((150, 60))
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0) 
+    time.sleep(0.05)
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
+    time.sleep(0.05)
+    
 
 def copy():
     kill(processname)
     copytjb()
     opensvnlog()
+
 if __name__ == '__main__':
     while True:
-        if ischange(reportfile,localreportfile) and findstrinfile(reportfile,lookup):
+        dotime()
+        if dotime():
+            chickmouse()
+        elif ischange(reportfile,localreportfile) and findstrinfile(reportfile,lookup) and not dotime():
             root = Tkinter.Tk()
             label =Tkinter.Label(root,text='程序已有更新').pack()
             button_sure = Tkinter.Button(root,text='更新',command = copy)
