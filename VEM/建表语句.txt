@@ -1,0 +1,25 @@
+--商品表
+create table  Commodity 
+(
+ Id integer  primary key unique,
+ Name varchar(10) not null,
+ Price numeric(5,2) not null,
+ Notes varchar(50)
+ 
+);
+
+--库存表
+create table SubInventory
+(
+ Id integer primaty key unique,
+ Subinventory integer not null
+);
+
+--金额表
+create table SubMoney
+(
+ MoneyID integer primaty key unique,
+ MoneyNum integer not null
+);
+
+
