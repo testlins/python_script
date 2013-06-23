@@ -42,11 +42,13 @@ class vemrule(object):
             if inmoney in summoney.keys():
                 vemrule.InitChange=inmoney-Objpri
                 return True
+                #return vemrule.InitChange
             else:
                 print "Currency amount can not identify"
                 return False
         else:
-            print "have no enough money"
+            print  "have no enough money"
+            #return "have no enough money"
             return False
 
     
@@ -94,7 +96,8 @@ class vemrule(object):
         inmoney = self.inmoney
         Objsum = self.Objsum
         Objid = self.Objid
-        if x.BuyRule()and x.Change() and x.EnoughSales():
+#        if self.BuyRule()==True and self.Change()==True and self.EnoughSales()==True:
+        if self.BuyRule() and self.Change() and self.EnoughSales():
             summoney[inmoney] += 1
             Objsum -= 1
             for key in summoney.keys():
@@ -104,9 +107,22 @@ class vemrule(object):
             vemdb_rule.cursor_vemdb.close()
             vemdb_rule.conn_vemdb.close()
                 #print key
-            print 'pass'
+            return "Successful transactions"
+        elif not self.BuyRule():
+            vemrule.InitChange = 0
+            return "have no enough money"
+        elif not self.Change():
+            vemrule.InitChange = 0
+            return "Not change"
+        elif not self.EnoughSales():
+            vemrule.InitChange = 0
+            return "Inventory is not enough"
         else:
             pass
+            #self.BuyRule()
+            #self.Change()
+            #self.EnoughSales()
+            #pass
 
         
 
@@ -115,7 +131,8 @@ class vemrule(object):
 
 
 if __name__ == '__main__':
-    x = vemrule(5,1)
+    x = vemrule(5,3)
     #x.AllCalc()
     x.BuyRule()
-    x.Change()
+      #  print x.BuyRule()
+    #x.Change()

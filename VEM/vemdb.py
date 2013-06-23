@@ -19,6 +19,17 @@ class vemdb(object):
         return  price[0]
         #for price in cursor_vemdb:
         #   return price[0]
+    
+    def select_info(self):
+        info = []
+        cursor_vemdb = self.cursor_vemdb
+        cursor_vemdb.execute('select Id,price,Name from Commodity')
+        for Id,price,Name in cursor_vemdb:
+            info.append((Id,price,Name))
+
+        return info
+
+    
 
 
     def select_subinventory(self,Id):
@@ -50,6 +61,7 @@ class vemdb(object):
 
 if __name__ == '__main__':
     x =vemdb()
-    x.select_price(3)
+    #x.select_price(3)
     x.select_submoney()
+    x.select_info()
     #x.update_submoney(1,9)
